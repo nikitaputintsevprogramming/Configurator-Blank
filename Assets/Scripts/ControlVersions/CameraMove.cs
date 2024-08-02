@@ -14,35 +14,49 @@ namespace Assets.Scripts.ControlVersions
 
         private void OnDragMoveForward(PointerEventData data)
         {
-            Vector3 _rotTo = new Vector3(0, SingletonCamera.instance.h * SingletonCamera.instance.settingsCamera._speed * Time.deltaTime, 0); // поворот
-            Vector3 _leanTo = new Vector3(-SingletonCamera.instance.v * SingletonCamera.instance.settingsCamera._speed * Time.deltaTime, 0, 0); // наклон
-
-            Vector3 _moveTo = new Vector3(SingletonCamera.instance.h * SingletonCamera.instance.settingsCamera._speed* Time.deltaTime, 0, SingletonCamera.instance.v * SingletonCamera.instance.settingsCamera._speed._speed * Time.deltaTime);
-
-            SingletonCamera.instance.v = data.delta.y;
-            SingletonCamera.instance.h = data.delta.x;
-
-            if (Input.touchCount >= 2)
+            if (SingletonCamera.Instance != null)
             {
-                Camera.main.transform.Rotate(_rotTo, Space.World);
-                Camera.main.transform.Rotate(_leanTo, Space.Self);
+                Vector3 _rotTo = new Vector3(0, SingletonCamera.Instance.h * SingletonCamera.Instance.settingsCamera._speed * Time.deltaTime, 0); // поворот
+                Vector3 _leanTo = new Vector3(-SingletonCamera.Instance.v * SingletonCamera.Instance.settingsCamera._speed * Time.deltaTime, 0, 0); // наклон
+
+                Vector3 _moveTo = new Vector3(SingletonCamera.Instance.h * SingletonCamera.Instance.settingsCamera._speed * Time.deltaTime, 0, SingletonCamera.Instance.v * SingletonCamera.Instance.settingsCamera._speed * Time.deltaTime);
+                 
+                SingletonCamera.Instance.v = data.delta.y;
+                SingletonCamera.Instance.h = data.delta.x;
+
+                if (Input.touchCount >= 2)
+                {
+                    Camera.main.transform.Rotate(_rotTo, Space.World);
+                    Camera.main.transform.Rotate(_leanTo, Space.Self);
+                }
+                else
+                {
+                    Camera.main.transform.Translate(_moveTo, Space.Self);
+                }
             }
             else
             {
-                Camera.main.transform.Translate(_moveTo, Space.Self);
+                Debug.LogWarning("SingletonCamera.Instance не инициализирован");
             }
         }
 
         private void OnEndDragoveForward(PointerEventData data)
         {
-            SingletonCamera.instance.v = 0;
-            SingletonCamera.instance.h = 0;
+            if (SingletonCamera.Instance != null)
+            {
+                SingletonCamera.Instance.v = 0;
+                SingletonCamera.Instance.h = 0;
+            }
+            else
+            {
+                Debug.LogWarning("SingletonCamera.Instance не инициализирован");
+            }
         }
 
         private void KeybMove()
         {
-            SingletonCamera.instance.v = Input.GetAxis("Vertical");
-            SingletonCamera.instance.h = Input.GetAxis("Horizontal");
+            SingletonCamera.Instance.v = Input.GetAxis("Vertical");
+            SingletonCamera.Instance.h = Input.GetAxis("Horizontal");
         }
     }
 }
