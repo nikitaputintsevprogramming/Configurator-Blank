@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class LookAtCam : MonoBehaviour
 {
-    void Update()
+    private void Update()
     {
         transform.LookAt(transform.position - Camera.main.transform.position);
     }

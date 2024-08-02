@@ -18,7 +18,7 @@ namespace Assets.Scripts.ControlVersions
             SwipeCameraController.e_OnEndDrag += OnEndDragTrails;
         }
 
-        void OnBeginDragTrails(PointerEventData data)
+        private void OnBeginDragTrails(PointerEventData data)
         {
             var _track = new GameObject("trailStep", typeof(RectTransform), typeof(Image));
 
@@ -31,7 +31,7 @@ namespace Assets.Scripts.ControlVersions
             _tracks.Add(_track);
         }
 
-        void OnDragTrails(PointerEventData data)
+        private void OnDragTrails(PointerEventData data)
         {
             List<Touch> _touches = new List<Touch>();
             _touches.Clear();
@@ -48,9 +48,8 @@ namespace Assets.Scripts.ControlVersions
             }
         }
 
-        void OnEndDragTrails(PointerEventData data)
+        private void OnEndDragTrails(PointerEventData data)
         {
-
             for (int i = _tracks.Count - 1; i >= 0; i--)
             {
                 Destroy(_tracks[i]);
