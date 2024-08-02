@@ -1,10 +1,12 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using System;
 
 namespace Assets.Scripts.ControlVersions
 {
     [RequireComponent(typeof(Image))]
+    [DisallowMultipleComponent]
     public class SwipeCameraController : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
     {
         public delegate void OnBeginDragHandler(PointerEventData data);
