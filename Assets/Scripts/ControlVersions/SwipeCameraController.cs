@@ -1,83 +1,74 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+//using UnityEngine.Events;
 
-[RequireComponent(typeof(Image))]
-public class SwipeCameraController : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
+namespace Assets.Scripts.ControlVersions
 {
-    [SerializeField] private Camera _camera;
-    [SerializeField] private float _speed;
-
-    private float v;
-    private float h;
-
-    [SerializeField] List<GameObject> _tracks;
-    DefaultControls.Resources knob;
-
-    public void OnBeginDrag(PointerEventData eventData)
+    [RequireComponent(typeof(Image))]
+    public class SwipeCameraController : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
     {
-        var _track = new GameObject("trailStep", typeof(RectTransform), typeof(Image));
-            
-        _track.transform.SetParent(transform);
-        _track.GetComponent<RectTransform>().localPosition = Vector2.zero;
-        _track.GetComponent<RectTransform>().localScale = Vector3.one;
-        _track.GetComponent<RectTransform>().localRotation = Quaternion.identity;
-        _track.GetComponent<Image>().sprite = Resources.Load<Sprite>("trailStep");
-        _track.GetComponent<Image>().color = new Color(255, 255, 255, 0.3f);
-        _tracks.Add(_track);
-    }
+        [SerializeField] private Camera _camera;
+        [SerializeField] private float _speed;
 
-    public void OnDrag(PointerEventData eventData)
-    {
-        Vector3 _moveTo = new Vector3(h * _speed * Time.deltaTime, 0, v * _speed * Time.deltaTime);
-        Vector3 _rotTo = new Vector3(0, h * _speed * Time.deltaTime, 0);
-        Vector3 _leanTo = new Vector3(-v * _speed * Time.deltaTime, 0, 0);
+        private float v;
+        private float h;
 
-        v = eventData.delta.y;
-        h = eventData.delta.x;
+        public delegate void OnBeginDragHandler(PointerEventData data);
+        public static event OnBeginDragHandler e_OnBeginDrag;
 
-        if (Input.touchCount >= 2)
+        public delegate void OnDragHandler(PointerEventData data);
+        public static event OnDragHandler e_OnDrag;
+
+        public delegate void OnEndDragHandler(PointerEventData data);
+        public static event OnEndDragHandler e_OnEndDrag;
+
+        public void OnBeginDrag(PointerEventData eventData)
         {
-            _camera.transform.Rotate(_rotTo, Space.World);
-            _camera.transform.Rotate(_leanTo, Space.Self);
-        }
-        else
-        {
-            _camera.transform.Translate(_moveTo, Space.Self);
+            if (e_OnBeginDrag != null)
+                e_OnBeginDrag(eventData);
         }
 
-        List<Touch> _touches = new List<Touch>();
-        _touches.Clear();
-        _touches = new List<Touch>(Input.touches);
-        
-        for (int i = 0; i < _touches.Count; i++)
+        public void OnDrag(PointerEventData eventData)
         {
-            if (i < _tracks.Count)
+            if (e_OnDrag != null)
+                e_OnDrag(eventData);
+
+            Vector3 _moveTo = new Vector3(h * _speed * Time.deltaTime, 0, v * _speed * Time.deltaTime);
+            Vector3 _rotTo = new Vector3(0, h * _speed * Time.deltaTime, 0);
+            Vector3 _leanTo = new Vector3(-v * _speed * Time.deltaTime, 0, 0);
+
+            v = eventData.delta.y;
+            h = eventData.delta.x;
+
+            if (Input.touchCount >= 2)
             {
-                float pointX = Input.touches[i].position.x - transform.GetComponent<RectTransform>().sizeDelta.x / 2;
-                float pointY = Input.touches[i].position.y - transform.GetComponent<RectTransform>().sizeDelta.y / 2;
-                _tracks[i].GetComponent<RectTransform>().localPosition = new Vector2(pointX, pointY);
+                _camera.transform.Rotate(_rotTo, Space.World);
+                _camera.transform.Rotate(_leanTo, Space.Self);
             }
+            else
+            {
+                _camera.transform.Translate(_moveTo, Space.Self);
+            }
+
+
         }
-    }
 
-    public void OnEndDrag(PointerEventData eventData)
-    {
-        v = 0;
-        h = 0;
-
-        for (int i = _tracks.Count - 1; i >= 0; i--)
+        public void OnEndDrag(PointerEventData eventData)
         {
-            Destroy(_tracks[i]);
-            _tracks.RemoveAt(i);
-        }
-    }
+            if (e_OnEndDrag != null)
+                e_OnEndDrag(eventData);
 
-    private void KeybMove()
-    {
-        v = Input.GetAxis("Vertical");
-        h = Input.GetAxis("Horizontal");
+            v = 0;
+            h = 0;
+
+        }
+
+        private void KeybMove()
+        {
+            v = Input.GetAxis("Vertical");
+            h = Input.GetAxis("Horizontal");
+        }
     }
 }

@@ -1555,6 +1555,7 @@ GameObject:
   - component: {fileID: 972270200}
   - component: {fileID: 972270199}
   - component: {fileID: 972270198}
+  - component: {fileID: 972270205}
   m_Layer: 5
   m_Name: TouchCameraCanvas
   m_TagString: Untagged
@@ -1576,7 +1577,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _camera: {fileID: 648552231}
   _speed: 10
-  _tracks: []
 --- !u!114 &972270199
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1696,6 +1696,19 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &972270205
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 972270197}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4872a84f0a17b9f4c9855862e51cec88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _tracks: []
 --- !u!4 &990927682 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4208458315195486, guid: c96016c34e7be62488e588470988ef5b, type: 3}
