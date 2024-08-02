@@ -7,6 +7,7 @@ namespace Assets.Scripts.ControlVersions
     [CreateAssetMenu(fileName = "SettingsCamera", menuName = "ScriptableObjects/SettingsCamera", order = 1)]
     public class SettingsCamera : ScriptableObject
     {
-        public float _speed;
+        public float _speedMovement;
+        public float _speedRotate;
     }
 }

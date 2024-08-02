@@ -1097,37 +1097,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4419083434238170, guid: 71442e8cd72511e4fabb72f1a2cc82dd, type: 3}
   m_PrefabInstance: {fileID: 471968026438074507}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &773795433
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 773795434}
-  m_Layer: 0
-  m_Name: GameObject
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &773795434
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 773795433}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7.9945474, y: 14.081296, z: 6.695165}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 7
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &781113764
 GameObject:
   m_ObjectHideFlags: 0
@@ -1585,7 +1554,12 @@ GameObject:
   - component: {fileID: 972270201}
   - component: {fileID: 972270200}
   - component: {fileID: 972270199}
-  - component: {fileID: 972270205}
+  - component: {fileID: 972270210}
+  - component: {fileID: 972270209}
+  - component: {fileID: 972270208}
+  - component: {fileID: 972270207}
+  - component: {fileID: 972270206}
+  - component: {fileID: 972270211}
   m_Layer: 5
   m_Name: TouchCameraCanvas
   m_TagString: Untagged
@@ -1712,9 +1686,46 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!114 &972270205
+--- !u!114 &972270206
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 972270197}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ccec1c3b2b2df546a9cc4d285c9dfb0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &972270207
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 972270197}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34282b4e4e23ff14aa598309e829fe4b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &972270208
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 972270197}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4872a84f0a17b9f4c9855862e51cec88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _tracks: []
+--- !u!114 &972270209
+MonoBehaviour:
+  m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -1724,6 +1735,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88fdf7a1ac21c704697ba42ebbf42603, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &972270210
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 972270197}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57a504f90ff6055478d00f8011f8d194, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &972270211
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 972270197}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19179c5de4a218145a42035c1ca653cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  settingsCamera: {fileID: 11400000, guid: 3d46c27c802449d45afb0ba9bfe3b9c4, type: 2}
+  v: 0
+  h: 0
 --- !u!4 &990927682 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4208458315195486, guid: c96016c34e7be62488e588470988ef5b, type: 3}

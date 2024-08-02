@@ -2,7 +2,7 @@
 using UnityEngine;
 
 [InitializeOnLoad]
-public class HideInInspectorOnAddEditor 
+public class HideInInspectorOnAddEditor
 {
     static HideInInspectorOnAddEditor()
     {

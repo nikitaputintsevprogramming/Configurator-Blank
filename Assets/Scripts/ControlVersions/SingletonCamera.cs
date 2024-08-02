@@ -1,11 +1,11 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEditor;
 using UnityEngine;
 
 namespace Assets.Scripts.ControlVersions
 {
     [RequireComponent(typeof(SwipeCameraController), typeof(CameraMove), typeof(CameraRotate))] 
-    [HideInInspectorOnAdd] // Применяем кастомный атрибут
     public class SingletonCamera : MonoBehaviour
     {
         public static SingletonCamera Instance { get; private set; }
@@ -24,7 +24,9 @@ namespace Assets.Scripts.ControlVersions
 
         public SettingsCamera settingsCamera;
 
+        [NonSerialized]
         public float v;
+        [NonSerialized]
         public float h;
 
     }
