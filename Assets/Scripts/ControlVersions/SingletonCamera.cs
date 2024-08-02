@@ -7,7 +7,11 @@ namespace Assets.Scripts.ControlVersions
     {
         public static SingletonCamera instance { get; set; }
 
+        public SettingsCamera settingsCamera;
+
         public float v;
         public float h;
+
+        
     }
 }
