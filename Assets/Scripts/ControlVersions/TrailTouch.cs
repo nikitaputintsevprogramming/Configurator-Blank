@@ -5,6 +5,7 @@ using UnityEngine.EventSystems;
 
 namespace Assets.Scripts.ControlVersions
 {
+    [HideInInspectorOnAdd]
     public class TrailTouch : MonoBehaviour
     {
         [SerializeField] List<GameObject> _tracks;

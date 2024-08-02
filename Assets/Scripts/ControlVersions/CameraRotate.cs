@@ -4,6 +4,7 @@ using UnityEngine.EventSystems;
 
 namespace Assets.Scripts.ControlVersions
 {
+    [HideInInspectorOnAdd]
     public class CameraRotate : MonoBehaviour
     {
         private void Start()

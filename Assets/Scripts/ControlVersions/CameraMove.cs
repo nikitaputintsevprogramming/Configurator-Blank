@@ -5,6 +5,7 @@ using UnityEngine.EventSystems;
 namespace Assets.Scripts.ControlVersions
 {
     [RequireComponent(typeof(SwipeCameraController))]
+    [HideInInspectorOnAdd]
     public class CameraMove : MonoBehaviour
     {
         private void Start()
