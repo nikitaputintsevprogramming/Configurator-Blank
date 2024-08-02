@@ -4,8 +4,8 @@ using UnityEngine.EventSystems;
 
 namespace Assets.Scripts.ControlVersions
 {
-    [RequireComponent(typeof(SwipeCameraController))]
     [HideInInspectorOnAdd]
+    [RequireComponent(typeof(TouchTracking), typeof(TrailTouch))] 
     public class CameraMove : MonoBehaviour
     {
         private void Start()

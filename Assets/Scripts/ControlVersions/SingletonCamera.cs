@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.ControlVersions
 {
+    [RequireComponent(typeof(SwipeCameraController), typeof(CameraMove), typeof(CameraRotate))] 
     [HideInInspectorOnAdd] // Применяем кастомный атрибут
     public class SingletonCamera : MonoBehaviour
     {
