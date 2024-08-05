@@ -6,8 +6,8 @@ using UnityEditor;
 
 namespace Assets.Scripts.ControlVersions
 {
+    [DisallowMultipleComponent]
     [RequireComponent(typeof(Image))]
-    [HideInInspectorOnAdd]
     public class SwipeCameraController : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
     {
 

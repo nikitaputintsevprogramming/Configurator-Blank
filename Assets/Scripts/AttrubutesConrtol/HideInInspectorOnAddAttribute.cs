@@ -7,4 +7,7 @@ namespace Assets.Scripts.ControlVersions
     public class HideInInspectorOnAddAttribute : Attribute
     {
     }
+
+    //Add to other class for hidden
+    //[HideInInspectorOnAdd]
 }

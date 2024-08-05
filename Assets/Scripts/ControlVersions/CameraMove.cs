@@ -4,10 +4,16 @@ using UnityEngine.EventSystems;
 
 namespace Assets.Scripts.ControlVersions
 {
-    [HideInInspectorOnAdd]
-    [RequireComponent(typeof(TouchTracking), typeof(TrailTouch))] 
+    [ExecuteAlways]
+    [DisallowMultipleComponent]
+    //[RequireComponent(typeof(TouchTracking), typeof(TrailTouch))] 
     public class CameraMove : MonoBehaviour
     {
+        void OnEnable()
+        {
+            SingletonCamera.DestroyCameraSettings += DestroyRequire;
+        }
+
         private void Start()
         {
             SwipeCameraController.e_OnDrag += OnDragMoveForward;
@@ -28,6 +34,11 @@ namespace Assets.Scripts.ControlVersions
             {
                 Debug.LogWarning("SingletonCamera.Instance не инициализирован");
             }
+        }
+
+        void DestroyRequire()
+        {
+            DestroyImmediate(gameObject.GetComponent<CameraMove>());
         }
     }
 }
