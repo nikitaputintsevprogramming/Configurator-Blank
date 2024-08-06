@@ -49,45 +49,39 @@ public class ArrowsGUI : MonoBehaviour
 
     public void Set360()
     {
-        print(PlayerPrefs.GetInt("Fullscreen"));
+        // Screen.currentResolution.height - выводит разрешение экрана пк, Screen.height - выводит разрешение окна, но текст меняется при последующем нажатии
         testText.text = Screen.currentResolution.height.ToString() + " " + Screen.height.ToString();
         Screen.SetResolution(640, 360, Convert.ToBoolean(PlayerPrefs.GetInt("Fullscreen")));
     }
 
     public void Set480()
     {
-        print(PlayerPrefs.GetInt("Fullscreen"));
-        testText.text = Screen.currentResolution.height.ToString() + " " + Screen.height.ToString();
-        
         Screen.SetResolution(854, 480, Convert.ToBoolean(PlayerPrefs.GetInt("Fullscreen")));
+        testText.text = Screen.currentResolution.height.ToString() + " " + Screen.height.ToString();
     }
 
     public void Set720()
     {
-        print(PlayerPrefs.GetInt("Fullscreen"));
-        testText.text = Screen.currentResolution.height.ToString() + " " + Screen.height.ToString();
         Screen.SetResolution(1280, 720, Convert.ToBoolean(PlayerPrefs.GetInt("Fullscreen")));
+        testText.text = Screen.currentResolution.height.ToString() + " " + Screen.height.ToString();
     }
 
     public void Set1080()
     {
-        print(PlayerPrefs.GetInt("Fullscreen"));
-        testText.text = Screen.currentResolution.height.ToString() + " " + Screen.height.ToString();
         Screen.SetResolution(1920, 1080, Convert.ToBoolean(PlayerPrefs.GetInt("Fullscreen")));
+        testText.text = Screen.currentResolution.height.ToString() + " " + Screen.height.ToString();
     }
 
     public void Set1440()
     {
-        print(PlayerPrefs.GetInt("Fullscreen"));
-        testText.text = Screen.currentResolution.height.ToString() + " " + Screen.height.ToString();
         Screen.SetResolution(2560, 1440, Convert.ToBoolean(PlayerPrefs.GetInt("Fullscreen")));
+        testText.text = Screen.currentResolution.height.ToString() + " " + Screen.height.ToString();
     }
 
     public void Set2160()
     {
-        print(PlayerPrefs.GetInt("Fullscreen"));
-        testText.text = Screen.currentResolution.height.ToString() + " " + Screen.height.ToString();
         Screen.SetResolution(3840, 2160, Convert.ToBoolean(PlayerPrefs.GetInt("Fullscreen")));
+        testText.text = Screen.currentResolution.height.ToString() + " " + Screen.height.ToString();
     }
 
     public void SetFullscreen()
