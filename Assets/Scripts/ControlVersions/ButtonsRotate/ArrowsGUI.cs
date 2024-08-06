@@ -8,18 +8,20 @@ using System;
 [ExecuteAlways]
 public class ArrowsGUI : MonoBehaviour
 {
+    [SerializeField] Text testText;
+    [SerializeField] Toggle testToggle;
     [SerializeField] private Vector2 _resolutionScreen;
     public GameObject _canvasObj;
 
     [ContextMenu("Add canvas")]
     void DoSomething()
     {
-        Reset();
+        //Reset();
+        CheckSize();
     }
 
     private void Reset()
     {
-        _resolutionScreen = new Vector2(3840, 2160);
         Debug.Log("Reset");
         _canvasObj = new GameObject("canvasArrows", typeof(Canvas), typeof(CanvasScaler));
         Canvas canvas = _canvasObj.GetComponent<Canvas>();
@@ -33,5 +35,64 @@ public class ArrowsGUI : MonoBehaviour
     private void OnDestroy()
     {
         DestroyImmediate(_canvasObj);
+    }
+
+    private void CheckSize()
+    {
+        //Screen.SetResolution(Convert.ToInt32(_resolutionScreen.x), Convert.ToInt32(_resolutionScreen.y), true);
+        Screen.SetResolution(640, 480, true);
+        //print(Display.main.systemWidth);
+        print(Screen.width);
+        testText.text = Screen.width.ToString();
+        //print(Screen.currentResolution); // gives the desktop resolution
+    }
+
+    public void Set360()
+    {
+        print(PlayerPrefs.GetInt("Fullscreen"));
+        testText.text = Screen.currentResolution.height.ToString() + " " + Screen.height.ToString();
+        Screen.SetResolution(640, 360, Convert.ToBoolean(PlayerPrefs.GetInt("Fullscreen")));
+    }
+
+    public void Set480()
+    {
+        print(PlayerPrefs.GetInt("Fullscreen"));
+        testText.text = Screen.currentResolution.height.ToString() + " " + Screen.height.ToString();
+        
+        Screen.SetResolution(854, 480, Convert.ToBoolean(PlayerPrefs.GetInt("Fullscreen")));
+    }
+
+    public void Set720()
+    {
+        print(PlayerPrefs.GetInt("Fullscreen"));
+        testText.text = Screen.currentResolution.height.ToString() + " " + Screen.height.ToString();
+        Screen.SetResolution(1280, 720, Convert.ToBoolean(PlayerPrefs.GetInt("Fullscreen")));
+    }
+
+    public void Set1080()
+    {
+        print(PlayerPrefs.GetInt("Fullscreen"));
+        testText.text = Screen.currentResolution.height.ToString() + " " + Screen.height.ToString();
+        Screen.SetResolution(1920, 1080, Convert.ToBoolean(PlayerPrefs.GetInt("Fullscreen")));
+    }
+
+    public void Set1440()
+    {
+        print(PlayerPrefs.GetInt("Fullscreen"));
+        testText.text = Screen.currentResolution.height.ToString() + " " + Screen.height.ToString();
+        Screen.SetResolution(2560, 1440, Convert.ToBoolean(PlayerPrefs.GetInt("Fullscreen")));
+    }
+
+    public void Set2160()
+    {
+        print(PlayerPrefs.GetInt("Fullscreen"));
+        testText.text = Screen.currentResolution.height.ToString() + " " + Screen.height.ToString();
+        Screen.SetResolution(3840, 2160, Convert.ToBoolean(PlayerPrefs.GetInt("Fullscreen")));
+    }
+
+    public void SetFullscreen()
+    {
+        PlayerPrefs.SetInt("Fullscreen", testToggle.GetComponent<Toggle>().isOn ? 1 : 0); // Convert.ToInt32(testToggle.isOn)
+        print(Convert.ToInt32(PlayerPrefs.GetInt("Fullscreen")));
     }
 }

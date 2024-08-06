@@ -2295,7 +2295,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c80e95c013b600245a4b288454265d7f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _resolutionScreen: {x: 720, y: 480}
+  testText: {fileID: 0}
+  _resolutionScreen: {x: 1080, y: 720}
   _canvasObj: {fileID: 1712172914}
 --- !u!4 &1492635293 stripped
 Transform:
