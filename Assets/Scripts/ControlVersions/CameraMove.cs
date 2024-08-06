@@ -27,7 +27,7 @@ namespace Assets.Scripts.ControlVersions
                  
                 if (Input.touchCount == 1)
                 {
-                    Camera.main.transform.Translate(_moveTo, Space.Self);
+                    Camera.main.transform.Translate(_moveTo, SingletonCamera.Instance.RotateCamera360 ? Space.Self : Space.World);
                 }
             }
             else
