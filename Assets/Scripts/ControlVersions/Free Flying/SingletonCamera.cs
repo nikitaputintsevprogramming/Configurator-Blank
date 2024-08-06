@@ -23,7 +23,6 @@ namespace Assets.Scripts.ControlVersions
 
         private void Reset()
         {
-            print("test");
             gameObject.AddComponent<CameraMove>().hideFlags = HideFlags.HideInInspector;
             gameObject.AddComponent<CameraRotate>().hideFlags = HideFlags.HideInInspector;
             gameObject.AddComponent<SwipeCameraController>().hideFlags = HideFlags.HideInInspector;
