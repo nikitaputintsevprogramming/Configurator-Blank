@@ -2,52 +2,36 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
-using System.Net.Http.Headers;
+using UnityEngine.UI;
+using System;
 
 [ExecuteAlways]
 public class ArrowsGUI : MonoBehaviour
 {
-    public float startX;
-    public float startY;
-    public float endX;
-    public float endY;
+    [SerializeField] private Vector2 _resolutionScreen;
+    public GameObject _canvasObj;
 
-    public static float width = Screen.width;
-    public static float height = Screen.height;
-
-    //public static float widthPanel = width / 10; // height / x
-    //public static float heightPanel = height / 10; // width / x
-
-    //public static float widthButton = width / 10; // height / x
-    //public static float heightButton = height / 10; // width / x   
-    
-    public static float widthPanel = 1600; // height / x
-    public static float heightPanel = 1900; // width / x
-
-    public static float widthButton = 600; // height / x
-    public static float heightButton = 200; // width / x
-
-    public Rect windowRect = new Rect(Screen.width / 2 - widthPanel / 2, Screen.height - heightPanel, widthPanel, heightPanel);
-
-    [ContextMenu("Do Something")]
+    [ContextMenu("Add canvas")]
     void DoSomething()
     {
-        //Debug.LogFormat("Ширина панели: {0}, Высота панели: {1}, Ширина кнопки: {2}, Высота кнопки: {3]", widthPanel.ToString(), heightPanel.ToString(), widthButton.ToString(), heightButton.ToString());
-        Debug.Log(Screen.height);
+        Reset();
     }
 
-    void OnGUI()
+    private void Reset()
     {
-        // Register the window. Notice the 3rd parameter
-        windowRect = GUI.Window(0, windowRect, DoMyWindow, "My Window");
+        _resolutionScreen = new Vector2(3840, 2160);
+        Debug.Log("Reset");
+        _canvasObj = new GameObject("canvasArrows", typeof(Canvas), typeof(CanvasScaler));
+        Canvas canvas = _canvasObj.GetComponent<Canvas>();
+        CanvasScaler canvasScaler = _canvasObj.GetComponent<CanvasScaler>();
+        canvas.renderMode = RenderMode.ScreenSpaceOverlay;
+        canvasScaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
+        canvasScaler.referenceResolution = new Vector2(_resolutionScreen.x, _resolutionScreen.y);
+        canvasScaler.matchWidthOrHeight = 0.5f;
     }
 
-    // Make the contents of the window
-    void DoMyWindow(int windowID)
+    private void OnDestroy()
     {
-        if (GUI.Button(new Rect(Screen.width / 2 - widthPanel / 2, Screen.height - heightPanel, widthPanel, heightPanel), "Hello World"))
-        {
-            print("Got a click");
-        }
+        DestroyImmediate(_canvasObj);
     }
 }
