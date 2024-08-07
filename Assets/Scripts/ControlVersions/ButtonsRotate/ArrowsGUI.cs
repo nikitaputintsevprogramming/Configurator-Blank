@@ -8,22 +8,32 @@ using System;
 [ExecuteAlways]
 public class ArrowsGUI : MonoBehaviour
 {
-    [SerializeField] Text testText;
-    [SerializeField] Toggle testToggle;
     [SerializeField] private Vector2 _resolutionScreen;
+    [SerializeField] private Vector2 _buttonSize; // Добавим возможность задавать размеры кнопок
     public GameObject _canvasObj;
+    public GameObject buttonObj;
 
-    [ContextMenu("Add canvas")]
+    [ContextMenu("Reload Canvas")]
     void DoSomething()
     {
-        //Reset();
-        CheckSize();
+        Reset();
     }
 
     private void Reset()
     {
         Debug.Log("Reset");
-        _canvasObj = new GameObject("canvasArrows", typeof(Canvas), typeof(CanvasScaler));
+
+        CreateCanvas();
+        // Создание кнопок
+        CreateButton("ButtonLeft", new Vector2(-_buttonSize.x / 2 - 10, 0), _buttonSize);
+        CreateButton("ButtonRight", new Vector2(_buttonSize.x / 2 + 10, 0), _buttonSize);
+    }
+
+    private void CreateCanvas()
+    {
+        // Создание Canvas
+        if (!_canvasObj)
+            _canvasObj = new GameObject("canvasArrows", typeof(Canvas), typeof(CanvasScaler));
         Canvas canvas = _canvasObj.GetComponent<Canvas>();
         CanvasScaler canvasScaler = _canvasObj.GetComponent<CanvasScaler>();
         canvas.renderMode = RenderMode.ScreenSpaceOverlay;
@@ -32,61 +42,25 @@ public class ArrowsGUI : MonoBehaviour
         canvasScaler.matchWidthOrHeight = 0.5f;
     }
 
+    private void CreateButton(string name, Vector2 anchoredPosition, Vector2 size)
+    {
+        if (!buttonObj)
+            buttonObj = new GameObject(name, typeof(RectTransform), typeof(Button), typeof(Image));
+        buttonObj.transform.SetParent(_canvasObj.transform);
+
+        RectTransform rectTransform = buttonObj.GetComponent<RectTransform>();
+        rectTransform.sizeDelta = size;
+        rectTransform.anchoredPosition = anchoredPosition;
+        rectTransform.anchorMin = new Vector2(0.5f, 0);
+        rectTransform.anchorMax = new Vector2(0.5f, 0);
+        rectTransform.pivot = new Vector2(0.5f, 0.5f);
+
+        Button button = buttonObj.GetComponent<Button>();
+        // Можно добавить настройку кнопки, например, текст или событие OnClick
+    }
+
     private void OnDestroy()
     {
         DestroyImmediate(_canvasObj);
-    }
-
-    private void CheckSize()
-    {
-        //Screen.SetResolution(Convert.ToInt32(_resolutionScreen.x), Convert.ToInt32(_resolutionScreen.y), true);
-        Screen.SetResolution(640, 480, true);
-        //print(Display.main.systemWidth);
-        print(Screen.width);
-        testText.text = Screen.width.ToString();
-        //print(Screen.currentResolution); // gives the desktop resolution
-    }
-
-    public void Set360()
-    {
-        // Screen.currentResolution.height - выводит разрешение экрана пк, Screen.height - выводит разрешение окна, но текст меняется при последующем нажатии
-        testText.text = Screen.currentResolution.height.ToString() + " " + Screen.height.ToString();
-        Screen.SetResolution(640, 360, Convert.ToBoolean(PlayerPrefs.GetInt("Fullscreen")));
-    }
-
-    public void Set480()
-    {
-        Screen.SetResolution(854, 480, Convert.ToBoolean(PlayerPrefs.GetInt("Fullscreen")));
-        testText.text = Screen.currentResolution.height.ToString() + " " + Screen.height.ToString();
-    }
-
-    public void Set720()
-    {
-        Screen.SetResolution(1280, 720, Convert.ToBoolean(PlayerPrefs.GetInt("Fullscreen")));
-        testText.text = Screen.currentResolution.height.ToString() + " " + Screen.height.ToString();
-    }
-
-    public void Set1080()
-    {
-        Screen.SetResolution(1920, 1080, Convert.ToBoolean(PlayerPrefs.GetInt("Fullscreen")));
-        testText.text = Screen.currentResolution.height.ToString() + " " + Screen.height.ToString();
-    }
-
-    public void Set1440()
-    {
-        Screen.SetResolution(2560, 1440, Convert.ToBoolean(PlayerPrefs.GetInt("Fullscreen")));
-        testText.text = Screen.currentResolution.height.ToString() + " " + Screen.height.ToString();
-    }
-
-    public void Set2160()
-    {
-        Screen.SetResolution(3840, 2160, Convert.ToBoolean(PlayerPrefs.GetInt("Fullscreen")));
-        testText.text = Screen.currentResolution.height.ToString() + " " + Screen.height.ToString();
-    }
-
-    public void SetFullscreen()
-    {
-        PlayerPrefs.SetInt("Fullscreen", testToggle.GetComponent<Toggle>().isOn ? 1 : 0); // Convert.ToInt32(testToggle.isOn)
-        print(Convert.ToInt32(PlayerPrefs.GetInt("Fullscreen")));
     }
 }
