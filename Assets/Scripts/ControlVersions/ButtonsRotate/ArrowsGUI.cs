@@ -4,63 +4,110 @@ using UnityEngine;
 using UnityEditor;
 using UnityEngine.UI;
 using System;
+using System.Drawing;
+using Unity.VisualScripting;
+using System.Linq;
 
-[ExecuteAlways]
-public class ArrowsGUI : MonoBehaviour
+namespace ArrowControl
 {
-    [SerializeField] private Vector2 _resolutionScreen;
-    [SerializeField] private Vector2 _buttonSize; // Добавим возможность задавать размеры кнопок
-    public GameObject _canvasObj;
-    public GameObject buttonObj;
 
-    [ContextMenu("Reload Canvas")]
-    void DoSomething()
+    [ExecuteAlways]
+    public class ArrowsGUI : MonoBehaviour
     {
-        Reset();
-    }
+        [SerializeField] private Vector2 _resolutionScreen = new Vector2(1920, 1080);
+        [SerializeField] private GameObject _canvasObj;
+        [SerializeField] private int _amountButtons;
+        [SerializeField] private List<GameObject> _buttons = new List<GameObject>();
 
-    private void Reset()
-    {
-        Debug.Log("Reset");
+        [SerializeField]
+        Dictionary<int, string> sides = new Dictionary<int, string>()
+        {
+            { 0, "Left"},
+            { 1, "Right"},
+            { 2, "Up"},
+            { 3, "Down"},
+        };
 
-        CreateCanvas();
-        // Создание кнопок
-        CreateButton("ButtonLeft", new Vector2(-_buttonSize.x / 2 - 10, 0), _buttonSize);
-        CreateButton("ButtonRight", new Vector2(_buttonSize.x / 2 + 10, 0), _buttonSize);
-    }
 
-    private void CreateCanvas()
-    {
-        // Создание Canvas
-        if (!_canvasObj)
-            _canvasObj = new GameObject("canvasArrows", typeof(Canvas), typeof(CanvasScaler));
-        Canvas canvas = _canvasObj.GetComponent<Canvas>();
-        CanvasScaler canvasScaler = _canvasObj.GetComponent<CanvasScaler>();
-        canvas.renderMode = RenderMode.ScreenSpaceOverlay;
-        canvasScaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
-        canvasScaler.referenceResolution = new Vector2(_resolutionScreen.x, _resolutionScreen.y);
-        canvasScaler.matchWidthOrHeight = 0.5f;
-    }
+        [ContextMenu("Reload Canvas")]
+        void DoSomething()
+        {
+            Reset();
+        }
 
-    private void CreateButton(string name, Vector2 anchoredPosition, Vector2 size)
-    {
-        if (!buttonObj)
-            buttonObj = new GameObject(name, typeof(RectTransform), typeof(Button), typeof(Image));
-        buttonObj.transform.SetParent(_canvasObj.transform);
+        [ContextMenu("Delete")]
+        void DoDelete()
+        {
+            // Производим итерацию задом наперед, так как RemoveAt пропускает данные в единице
+            // https://ru.stackoverflow.com/questions/992441
+            for (int i = _buttons.Count -1; i > 0; i--)
+            {
+                if (_buttons[i] == null)
+                {
+                    _buttons.RemoveAt(i);
+                }
+            }
+        }
 
-        RectTransform rectTransform = buttonObj.GetComponent<RectTransform>();
-        rectTransform.sizeDelta = size;
-        rectTransform.anchoredPosition = anchoredPosition;
-        rectTransform.anchorMin = new Vector2(0.5f, 0);
-        rectTransform.anchorMax = new Vector2(0.5f, 0);
-        rectTransform.pivot = new Vector2(0.5f, 0.5f);
+        private void Reset()
+        {
+            Debug.Log("Reset");
 
-        Button button = buttonObj.GetComponent<Button>();
-        // Можно добавить настройку кнопки, например, текст или событие OnClick
-    }
+            if (!_canvasObj)
+            {
+                CreateCanvas();
+                AddComponents();
+            }
+            Debug.LogFormat("Длина массива составляет: {0}, Требуемое количество: {1}", _buttons.Count, _amountButtons);
+            if(_buttons.Count < _amountButtons)
+            {
+                AddButtons();
+            }
+            Debug.LogFormat("Длина массива составляет: {0}, Требуемое количество: {1}", _buttons.Count, _amountButtons);
+        }
 
-    private void OnDestroy()
-    {
-        DestroyImmediate(_canvasObj);
+        private void CreateCanvas()
+        {
+            // Создание Canvas
+            _canvasObj = new GameObject("canvasArrows", typeof(Canvas), typeof(CanvasScaler), typeof(GraphicRaycaster));
+        }
+
+        private void AddComponents()
+        {
+            Canvas canvas = _canvasObj.GetComponent<Canvas>();
+            CanvasScaler canvasScaler = _canvasObj.GetComponent<CanvasScaler>();
+            canvas.renderMode = RenderMode.ScreenSpaceOverlay;
+            canvasScaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
+            canvasScaler.referenceResolution = new Vector2(_resolutionScreen.x, _resolutionScreen.y);
+            canvasScaler.matchWidthOrHeight = 0.5f;
+
+            GridLayoutGroup gridGroup = _canvasObj.AddComponent<GridLayoutGroup>();
+            gridGroup.childAlignment = TextAnchor.LowerCenter;
+        }
+
+        private void AddButtons()
+        {
+            for (int i = _buttons.Count; _buttons.Count < _amountButtons; i++)
+            {
+                _buttons.Add(new GameObject("Arrow" + sides[i], typeof(Image), typeof(Button)));
+                _buttons[i].transform.SetParent(_canvasObj.transform);
+            }
+        }
+
+        private void OnDestroy()
+        {
+            DestroyImmediate(_canvasObj);
+        }
     }
 }
+
+//buttonObj.transform.SetParent(_canvasObj.transform);
+
+//RectTransform rectTransform = buttonObj.GetComponent<RectTransform>();
+//rectTransform.sizeDelta = size;
+//rectTransform.anchoredPosition = anchoredPosition;
+//rectTransform.anchorMin = new Vector2(0.5f, 0);
+//rectTransform.anchorMax = new Vector2(0.5f, 0);
+//rectTransform.pivot = new Vector2(0.5f, 0.5f);
+
+//Button button = buttonObj.GetComponent<Button>();
