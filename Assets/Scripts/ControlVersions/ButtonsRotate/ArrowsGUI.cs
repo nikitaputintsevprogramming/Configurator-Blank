@@ -21,7 +21,9 @@ namespace ArrowControl
         [SerializeField] private Vector2 _resolutionScreen = new Vector2(1920, 1080);
         [SerializeField] private GameObject _canvasObj;
         [Range(1, 4)]
-        [SerializeField] private int _amountButtons;
+        [SerializeField] private int _amountButtonsValue;
+        [SerializeField] private int _amountButtons { get => _amountButtonsValue; set => DoDelete(); }
+
         //[SerializeField] private Slider _amountButtons;
         [SerializeField] private List<GameObject> _buttons = new List<GameObject>();
 
@@ -55,7 +57,7 @@ namespace ArrowControl
                     if (Application.isPlaying)
                         Destroy(_buttons[i].gameObject);
                     else
-                        Destroy(_buttons[i].gameObject);
+                        DestroyImmediate(_buttons[i].gameObject);
                     _buttons.RemoveAt(i);
                 }
             }
@@ -64,6 +66,7 @@ namespace ArrowControl
         private void Start()
         {
             EditorApplication.hierarchyChanged += DoDelete;
+            //EditorApplication.hierarchyChanged += () => DoDelete();
         }
 
         private void Reset()
