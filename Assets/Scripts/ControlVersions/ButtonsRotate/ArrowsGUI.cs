@@ -4,23 +4,13 @@ using UnityEngine;
 using UnityEditor;
 using UnityEngine.UI;
 using System;
-using System.Drawing;
-using Unity.VisualScripting;
-using System.Linq;
 
 namespace ArrowControl
 {
-
     [ExecuteAlways]
     public class ArrowsGUI : MonoBehaviour
     {
-        [SerializeField] private Vector2 _resolutionScreen = new Vector2(1920, 1080);
-        [SerializeField] private GameObject _canvasObj;
-        [SerializeField] private int _amountButtons;
-        [SerializeField] private List<GameObject> _buttons = new List<GameObject>();
-
-        [SerializeField]
-        Dictionary<int, string> sides = new Dictionary<int, string>()
+        static Dictionary<int, string> sides = new Dictionary<int, string>()
         {
             { 0, "Left"},
             { 1, "Right"},
@@ -28,11 +18,25 @@ namespace ArrowControl
             { 3, "Down"},
         };
 
+        [SerializeField] private Vector2 _resolutionScreen = new Vector2(1920, 1080);
+        [SerializeField] private GameObject _canvasObj;
+        [Range(1, 4)]
+        [SerializeField] private int _amountButtons;
+        //[SerializeField] private Slider _amountButtons;
+        [SerializeField] private List<GameObject> _buttons = new List<GameObject>();
 
         [ContextMenu("Reload Canvas")]
         void DoSomething()
         {
             Reset();
+            DoDelete();
+        }
+
+        private void OnValidate()
+        {
+            Reset();
+            DoDelete();
+            print("Произошли изменения");
         }
 
         [ContextMenu("Delete")]
@@ -46,7 +50,20 @@ namespace ArrowControl
                 {
                     _buttons.RemoveAt(i);
                 }
+                if(i >= _amountButtons)
+                {
+                    if (Application.isPlaying)
+                        Destroy(_buttons[i].gameObject);
+                    else
+                        Destroy(_buttons[i].gameObject);
+                    _buttons.RemoveAt(i);
+                }
             }
+        }
+
+        private void Start()
+        {
+            EditorApplication.hierarchyChanged += DoDelete;
         }
 
         private void Reset()

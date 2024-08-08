@@ -7,12 +7,11 @@ namespace Assets.Scripts
 {
     [ExecuteAlways]
     [InitializeOnLoadAttribute]
-    public class HierarchyMonitor : MonoBehaviour // Работает и без наследования
+    public class HierarchyMonitor // Работает и без наследования
     {
-        static HierarchyMonitor()
-        {
-            EditorApplication.hierarchyChanged += OnHierarchyChanged;
-        }
+        public static HierarchyMonitor Instance;
+        static  HierarchyMonitor() => EditorApplication.hierarchyChanged += OnHierarchyChanged;
+        
 
         static void OnHierarchyChanged()
         {
