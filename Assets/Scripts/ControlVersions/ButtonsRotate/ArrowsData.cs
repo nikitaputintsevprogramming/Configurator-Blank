@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEditor;
 using UnityEngine.UI;
 using System;
+using Assets.Scripts.ControlVersions.ButtonsRotate;
 
 namespace ArrowControl
 {
@@ -14,8 +15,10 @@ namespace ArrowControl
     };
 
     [ExecuteAlways]
-    public class ArrowsGUI : MonoBehaviour
+    public class ArrowsData : MonoBehaviour
     {
+        public static ArrowsData Instance;
+
         static Dictionary<int, string> sides = new Dictionary<int, string>()
         {
             { 0, "Left"},
@@ -30,42 +33,20 @@ namespace ArrowControl
             { "UHD_4K", new Vector2(3840, 2160)},
         };
 
-        [SerializeField] private Vector2 _resolutionScreen = qualityDictionary[QualityEnum.FullHD.ToString()];
-        private GameObject _canvasObj;
-        private List<GameObject> _buttons = new List<GameObject>();
-        [SerializeField] private QualityEnum Quality = QualityEnum.FullHD;//будет отображатся как дропдаун
+        public Vector2 _resolutionScreen = qualityDictionary[QualityEnum.FullHD.ToString()];
+        public GameObject _canvasObj;
+        public List<GameObject> _buttons = new List<GameObject>();
+        public QualityEnum Quality = QualityEnum.FullHD;//будет отображатся как дропдаун
 
         [Range(1, 4)]
-        [SerializeField] private int _amountButtons;
+        public int _amountButtons;
 
-        private void OnValidate()
+        public void OnValidate()
         {
             Reset();
             // Отложенное удаление кнопок
             EditorApplication.delayCall += DeleteExcess;
             _resolutionScreen = qualityDictionary[Quality.ToString()];
-        }
-
-        [ContextMenu("Reset Canvas")]
-        void DeleteExcess()
-        {
-            // Производим итерацию задом наперед, так как RemoveAt пропускает данные в единице
-            // https://ru.stackoverflow.com/questions/992441
-            for (int i = _buttons.Count -1; i > 0; i--)
-            {
-                if (_buttons[i] == null)
-                {
-                    _buttons.RemoveAt(i);
-                }
-                if(i >= _amountButtons)
-                {
-                    if (Application.isPlaying)
-                        Destroy(_buttons[i].gameObject);
-                    else
-                        DestroyImmediate(_buttons[i].gameObject);
-                    _buttons.RemoveAt(i);
-                }
-            }
         }
 
         private void Start()
@@ -74,7 +55,7 @@ namespace ArrowControl
             //EditorApplication.hierarchyChanged += () => DoDelete();
         }
 
-        private void Reset()
+        public void Reset()
         {
             if (!_canvasObj || !_canvasObj.gameObject.activeInHierarchy)
             {
@@ -85,6 +66,28 @@ namespace ArrowControl
             {
                 AddButtons();
                 AddComponents();
+            }
+        }
+
+        [ContextMenu("Reset Canvas")]
+        void DeleteExcess()
+        {
+            // Производим итерацию задом наперед, так как RemoveAt пропускает данные в единице
+            // https://ru.stackoverflow.com/questions/992441
+            for (int i = _buttons.Count - 1; i > 0; i--)
+            {
+                if (_buttons[i] == null)
+                {
+                    _buttons.RemoveAt(i);
+                }
+                if (i >= _amountButtons)
+                {
+                    if (Application.isPlaying)
+                        Destroy(_buttons[i].gameObject);
+                    else
+                        DestroyImmediate(_buttons[i].gameObject);
+                    _buttons.RemoveAt(i);
+                }
             }
         }
 
