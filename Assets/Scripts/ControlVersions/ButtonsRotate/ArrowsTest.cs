@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEditor;
 using UnityEngine.UI;
 using System;
-using System.Security.Cryptography;
 
 namespace ArrowControl
 {
@@ -34,13 +33,14 @@ namespace ArrowControl
         };
 
         public Vector2 _resolutionScreen = qualityDictionary[QualityEnum.FullHD.ToString()];
-        public GameObject _canvasObj;
-        public List<GameObject> _buttons = new List<GameObject>();
         public QualityEnum Quality = QualityEnum.FullHD;//будет отображатся как дропдаун
+        //public Vector2 sizeButtons = new Vector2(100, 100);
+        public GameObject _canvasObj;
 
+
+        public List<GameObject> _buttons = new List<GameObject>();
         [Range(1, 4)]
         public int _amountButtons;
-
         //components
         public GridLayoutGroup gridGroup;
         public Canvas canvas;
@@ -110,6 +110,7 @@ namespace ArrowControl
             {
                 _buttons.Add(new GameObject("Arrow" + sides[i], typeof(Image), typeof(Button)));
                 _buttons[i].transform.SetParent(_canvasObj.transform);
+                _buttons[i].transform.localScale = Vector3.one;
             }
         }
 
@@ -126,7 +127,9 @@ namespace ArrowControl
             canvasScaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
             canvasScaler.referenceResolution = new Vector2(_resolutionScreen.x, _resolutionScreen.y);
             canvasScaler.matchWidthOrHeight = 0.5f;
-            gridGroup.childAlignment = TextAnchor.LowerCenter; 
+            gridGroup.childAlignment = TextAnchor.LowerCenter;
+
+            //gridGroup.cellSize = sizeButtons;
         }
 
         private void OnDestroy()
