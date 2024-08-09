@@ -18,7 +18,7 @@ namespace Assets.Scripts
             var all = Resources.FindObjectsOfTypeAll(typeof(GameObject));
             var numberVisible =
                 all.Where(obj => obj.name.StartsWith("Arrow")).Count();
-            Debug.LogFormat("There are currently {0} GameObjects with name Arrow.", numberVisible);
+            //Debug.LogFormat("There are currently {0} GameObjects with name Arrow.", numberVisible);
         }
     }
 }

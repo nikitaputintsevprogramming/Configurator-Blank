@@ -7,6 +7,12 @@ using System;
 
 namespace ArrowControl
 {
+    public enum QualityEnum
+    {
+        FullHD,
+        UHD_4K,
+    };
+
     [ExecuteAlways]
     public class ArrowsGUI : MonoBehaviour
     {
@@ -18,11 +24,16 @@ namespace ArrowControl
             { 3, "Down"},
         };
 
-        [SerializeField] private Vector2 _resolutionScreen = new Vector2(1920, 1080);
-        [SerializeField] private GameObject _canvasObj;
+        static Dictionary<string, Vector2> qualityDictionary = new Dictionary<string, Vector2>()
+        {
+            { "FullHD", new Vector2(1920, 1080)},
+            { "UHD_4K", new Vector2(3840, 2160)},
+        };
 
-        [SerializeField] private List<GameObject> _buttons = new List<GameObject>();
-
+        [SerializeField] private Vector2 _resolutionScreen = qualityDictionary[QualityEnum.FullHD.ToString()];
+        private GameObject _canvasObj;
+        private List<GameObject> _buttons = new List<GameObject>();
+        [SerializeField] private QualityEnum Quality = QualityEnum.FullHD;//будет отображатся как дропдаун
 
         [Range(1, 4)]
         [SerializeField] private int _amountButtons;
@@ -30,14 +41,13 @@ namespace ArrowControl
         private void OnValidate()
         {
             Reset();
-            //DoDelete();
             // Отложенное удаление кнопок
-            EditorApplication.delayCall += DoDelete;
-            print("Произошли изменения");
+            EditorApplication.delayCall += DeleteExcess;
+            _resolutionScreen = qualityDictionary[Quality.ToString()];
         }
 
-        [ContextMenu("Delete")]
-        void DoDelete()
+        [ContextMenu("Reset Canvas")]
+        void DeleteExcess()
         {
             // Производим итерацию задом наперед, так как RemoveAt пропускает данные в единице
             // https://ru.stackoverflow.com/questions/992441
@@ -60,31 +70,29 @@ namespace ArrowControl
 
         private void Start()
         {
-            EditorApplication.hierarchyChanged += DoDelete;
+            EditorApplication.hierarchyChanged += DeleteExcess;
             //EditorApplication.hierarchyChanged += () => DoDelete();
         }
 
         private void Reset()
         {
-            Debug.Log("Reset");
-
-            if (!_canvasObj)
+            if (!_canvasObj || !_canvasObj.gameObject.activeInHierarchy)
             {
+                //Debug.Log("Нет канваса");
                 CreateCanvas();
-                AddComponents();
             }
-            Debug.LogFormat("Длина массива составляет: {0}, Требуемое количество: {1}", _buttons.Count, _amountButtons);
             if(_buttons.Count < _amountButtons)
             {
                 AddButtons();
+                AddComponents();
             }
-            Debug.LogFormat("Длина массива составляет: {0}, Требуемое количество: {1}", _buttons.Count, _amountButtons);
         }
 
         private void CreateCanvas()
         {
             // Создание Canvas
             _canvasObj = new GameObject("canvasArrows", typeof(Canvas), typeof(CanvasScaler), typeof(GraphicRaycaster));
+            _canvasObj.transform.SetParent(transform);
         }
 
         private void AddComponents()
