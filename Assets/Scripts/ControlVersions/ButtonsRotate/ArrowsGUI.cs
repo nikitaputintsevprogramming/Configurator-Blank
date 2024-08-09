@@ -20,24 +20,19 @@ namespace ArrowControl
 
         [SerializeField] private Vector2 _resolutionScreen = new Vector2(1920, 1080);
         [SerializeField] private GameObject _canvasObj;
-        [Range(1, 4)]
-        [SerializeField] private int _amountButtonsValue;
-        [SerializeField] private int _amountButtons { get => _amountButtonsValue; set => DoDelete(); }
 
-        //[SerializeField] private Slider _amountButtons;
         [SerializeField] private List<GameObject> _buttons = new List<GameObject>();
 
-        [ContextMenu("Reload Canvas")]
-        void DoSomething()
-        {
-            Reset();
-            DoDelete();
-        }
+
+        [Range(1, 4)]
+        [SerializeField] private int _amountButtons;
 
         private void OnValidate()
         {
             Reset();
-            DoDelete();
+            //DoDelete();
+            // Отложенное удаление кнопок
+            EditorApplication.delayCall += DoDelete;
             print("Произошли изменения");
         }
 
