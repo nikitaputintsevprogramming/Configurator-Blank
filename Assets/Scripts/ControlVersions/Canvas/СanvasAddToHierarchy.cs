@@ -32,13 +32,26 @@ namespace CameraPreset
             Debug.Log("AddCanvasToHierarchy called");
             for (int i = qualityDictionary.Keys.Count - 1; i >= 0; i--)
             {
-                Debug.Log("Creating Canvas for Quality: " + qualityDictionary[i]);
-                // Создание Canvas
                 GameObject _canvasArrowsObj = new GameObject("Canvas" + qualityDictionary[i], typeof(Canvas), typeof(CanvasScaler), typeof(GraphicRaycaster), typeof(GridLayoutGroup), typeof(CanvasSettings));
-                // Вывод сообщения для проверки созданного объекта
-                Debug.Log("Canvas Created: " + _canvasArrowsObj.name);
+
+                // Добавляем специфический скрипт для каждого Canvas
+                switch (i)
+                {
+                    case 0:
+                        _canvasArrowsObj.AddComponent<CanvasType1>();
+                        break;
+                    case 1:
+                        _canvasArrowsObj.AddComponent<CanvasType2>();
+                        break;
+                    case 2:
+                        _canvasArrowsObj.AddComponent<CanvasType3>();
+                        break;
+                }
+
                 if (СanvasAddedToHierarchy != null)
+                {
                     СanvasAddedToHierarchy();
+                }
             }
         }
     }
