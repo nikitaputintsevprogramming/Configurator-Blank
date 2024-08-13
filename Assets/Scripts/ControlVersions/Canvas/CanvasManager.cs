@@ -52,7 +52,6 @@ namespace CameraPreset
 //else
 //{
 //    canvas.SetActiveObj(false);
-//    Debug.Log("кккккккк " + canvas);
 //}
 //    }
 //}
@@ -62,7 +61,6 @@ namespace CameraPreset
 //{
 //    if (canvas is IChoosable choosableCanvas)
 //    {
-//        Debug.Log("eeeeeeeeee " + canvas);
 //        // Проверка соответствия канваса текущему пресету
 //        return choosableCanvas.AssociatedPreset == preset;
 //    }
