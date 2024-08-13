@@ -1,8 +1,5 @@
-﻿using CameraPreset;
-using System;
-using System.Collections;
+﻿using System;
 using System.Collections.Generic;
-using System.Security.Cryptography;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
@@ -13,16 +10,13 @@ namespace CameraPreset
     [InitializeOnLoad]
     public class СanvasAddToHierarchy 
     {
-        static Dictionary<int, CameraPresets> qualityDictionary = new Dictionary<int, CameraPresets>()
+        static Dictionary<int, string> qualityDictionary = new Dictionary<int, string>()
         {
-            { 0, (CameraPresets)Enum.GetValues(typeof(CameraPresets)).GetValue(0)},
-            { 1, (CameraPresets)Enum.GetValues(typeof(CameraPresets)).GetValue(1)},
-            { 2, (CameraPresets)Enum.GetValues(typeof(CameraPresets)).GetValue(2)},
+            { 0, Enum.GetValues(typeof(CameraPresets)).GetValue(0).ToString()},
+            //{ 1, (CameraPresets)Enum.GetValues(typeof(CameraPresets)).GetValue(1)}, for Dictionary<int, CameraPresets>
+            { 1, Enum.GetValues(typeof(CameraPresets)).GetValue(1).ToString()},
+            { 2, Enum.GetValues(typeof(CameraPresets)).GetValue(2).ToString()},
         };
-        //public GameObject _canvasObj;
-        //public GridLayoutGroup gridGroup;
-        //public Canvas canvas;
-        //public CanvasScaler canvasScaler;
 
         public delegate void СanvasAddedToHierarchyHandler();
         public static event СanvasAddedToHierarchyHandler СanvasAddedToHierarchy;
@@ -35,13 +29,17 @@ namespace CameraPreset
 
         static void AddCanvasToHierarchy()
         {
-            Debug.Log(CameraPreset.currentPreset);
-            // Создание Canvas
-            GameObject _canvasArrowsObj = new GameObject("CanvasArrows", typeof(Canvas), typeof(CanvasScaler), typeof(GraphicRaycaster), typeof(GridLayoutGroup), typeof(CanvasArrowsSettings));
-            if (СanvasAddedToHierarchy != null)
-                СanvasAddedToHierarchy();
-            //if(CanvasArrowsSettings.instance != null)
-            //    CanvasArrowsSettings.instance.SetCanvas();
+            Debug.Log("AddCanvasToHierarchy called");
+            for (int i = qualityDictionary.Keys.Count - 1; i >= 0; i--)
+            {
+                Debug.Log("Creating Canvas for Quality: " + qualityDictionary[i]);
+                // Создание Canvas
+                GameObject _canvasArrowsObj = new GameObject("Canvas" + qualityDictionary[i], typeof(Canvas), typeof(CanvasScaler), typeof(GraphicRaycaster), typeof(GridLayoutGroup), typeof(CanvasSettings));
+                // Вывод сообщения для проверки созданного объекта
+                Debug.Log("Canvas Created: " + _canvasArrowsObj.name);
+                if (СanvasAddedToHierarchy != null)
+                    СanvasAddedToHierarchy();
+            }
         }
     }
 }

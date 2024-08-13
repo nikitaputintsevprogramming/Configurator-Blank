@@ -6,35 +6,24 @@ using UnityEngine.UI;
 
 namespace CameraPreset
 {
-    [ExecuteInEditMode]  // Позволяет скрипту выполняться в режиме редактирования
+    [ExecuteInEditMode]
     [InitializeOnLoad]
-    public class CanvasArrowsSettings : MonoBehaviour
+    public class CanvasSettings : MonoBehaviour
     {
-        public static CanvasArrowsSettings Instance;
-
-        static CanvasArrowsSettings()
+        static CanvasSettings()
         {
             // Подписка на событие при загрузке Unity Editor
             СanvasAddToHierarchy.СanvasAddedToHierarchy += SetParentCanvas;
         }
 
-        private void OnEnable()
-        {
-            if (Instance == null)
-            {
-                Instance = this;
-            }
-            else if (Instance != this)
-            {
-                DestroyImmediate(gameObject);
-            }
-        }
-
         static void SetParentCanvas()
         {
-            Debug.Log("SetParentCanvas");
-            if (Instance != null)
-                Instance.SetParent();
+            // Вызываем SetParent для всех экземпляров CanvasSettings
+            var canvasSettingsInstances = FindObjectsOfType<CanvasSettings>();
+            foreach (var instance in canvasSettingsInstances)
+            {
+                instance.SetParent();
+            }
         }
 
         public void SetParent()
