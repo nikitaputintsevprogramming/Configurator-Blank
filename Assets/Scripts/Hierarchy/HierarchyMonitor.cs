@@ -5,8 +5,6 @@ using UnityEngine;
 
 namespace Assets.Scripts
 {
-    [ExecuteAlways]
-    [InitializeOnLoadAttribute]
     public class HierarchyMonitor // Работает и без наследования
     {
         public static HierarchyMonitor Instance;

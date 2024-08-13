@@ -5,19 +5,19 @@ using UnityEngine.EventSystems;
 namespace Assets.Scripts.ControlVersions
 {
     [DisallowMultipleComponent]
-    public class CameraRotate : MonoBehaviour
+    public class CameraRotateOLD : MonoBehaviour
     {
         private void Start()
         {
-            SwipeCameraController.e_OnDrag += OnDragCameraRotate;
+            SwipeCameraControllerOLD.e_OnDrag += OnDragCameraRotate;
         }
 
         private void OnDragCameraRotate(PointerEventData data)
         {
-            if (SingletonCamera.Instance != null)
+            if (SingletonCameraOLD.Instance != null)
             {
-                Vector3 _rotTo = new Vector3(0, SingletonCamera.Instance.h * SingletonCamera.Instance.settingsCamera._speedRotate * Time.deltaTime, 0); // поворот
-                Vector3 _leanTo = new Vector3(-SingletonCamera.Instance.v * SingletonCamera.Instance.settingsCamera._speedRotate * Time.deltaTime, 0, 0); // наклон
+                Vector3 _rotTo = new Vector3(0, SingletonCameraOLD.Instance.h * SingletonCameraOLD.Instance.settingsCamera._speedRotate * Time.deltaTime, 0); // поворот
+                Vector3 _leanTo = new Vector3(-SingletonCameraOLD.Instance.v * SingletonCameraOLD.Instance.settingsCamera._speedRotate * Time.deltaTime, 0, 0); // наклон
 
                 if (Input.touchCount >= 2)
                 {

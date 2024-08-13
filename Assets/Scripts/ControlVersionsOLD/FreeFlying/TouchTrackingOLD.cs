@@ -5,26 +5,26 @@ using UnityEngine.EventSystems;
 namespace Assets.Scripts.ControlVersions
 {
     [DisallowMultipleComponent]
-    public class TouchTracking : MonoBehaviour
+    public class TouchTrackingOLD : MonoBehaviour
     {
         private void Start()
         {
-            SwipeCameraController.e_OnDrag += OnDragMoveTracking;
-            SwipeCameraController.e_OnEndDrag += OnEndDragOverTracking;
+            SwipeCameraControllerOLD.e_OnDrag += OnDragMoveTracking;
+            SwipeCameraControllerOLD.e_OnEndDrag += OnEndDragOverTracking;
         }
 
         private void OnDragMoveTracking(PointerEventData data)
         {
-            SingletonCamera.Instance.v = data.delta.y;
-            SingletonCamera.Instance.h = data.delta.x;
+            SingletonCameraOLD.Instance.v = data.delta.y;
+            SingletonCameraOLD.Instance.h = data.delta.x;
         }
 
         private void OnEndDragOverTracking(PointerEventData data)
         {
-            if (SingletonCamera.Instance != null)
+            if (SingletonCameraOLD.Instance != null)
             {
-                SingletonCamera.Instance.v = 0;
-                SingletonCamera.Instance.h = 0;
+                SingletonCameraOLD.Instance.v = 0;
+                SingletonCameraOLD.Instance.h = 0;
             }
             else
             {

@@ -5,8 +5,7 @@ using UnityEngine.EventSystems;
 
 namespace Assets.Scripts.ControlVersions
 {
-    [DisallowMultipleComponent]
-    public class TrailTouch : MonoBehaviour
+    public class TrailTouchOLD : MonoBehaviour
     {
         [SerializeField] List<GameObject> _tracks;
 
@@ -14,9 +13,9 @@ namespace Assets.Scripts.ControlVersions
 
         private void Start()
         {
-            SwipeCameraController.e_OnBeginDrag += OnBeginDragTrails;
-            SwipeCameraController.e_OnDrag += OnDragTrails;
-            SwipeCameraController.e_OnEndDrag += OnEndDragTrails;
+            SwipeCameraControllerOLD.e_OnBeginDrag += OnBeginDragTrails;
+            SwipeCameraControllerOLD.e_OnDrag += OnDragTrails;
+            SwipeCameraControllerOLD.e_OnEndDrag += OnEndDragTrails;
         }
 
         private void OnBeginDragTrails(PointerEventData data)

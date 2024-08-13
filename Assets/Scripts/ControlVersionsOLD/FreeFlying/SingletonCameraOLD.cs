@@ -7,16 +7,15 @@ using UnityEngine.Events;
 
 namespace Assets.Scripts.ControlVersions
 {
-    [ExecuteAlways]
     [DisallowMultipleComponent]
     //[RequireComponent(typeof(HiddenChildrenComponents))] //, typeof(CameraMove), typeof(CameraRotate))] 
-    public class SingletonCamera : MonoBehaviour
+    public class SingletonCameraOLD : MonoBehaviour
     {
         public delegate void DestroyCameraSettingsHandler();
         public static event DestroyCameraSettingsHandler DestroyCameraSettings;
 
         public bool RotateCamera360;
-        public static SingletonCamera Instance { get; private set; }
+        public static SingletonCameraOLD Instance { get; private set; }
         public SettingsCamera settingsCamera;
 
         [NonSerialized] public float v;
@@ -24,11 +23,11 @@ namespace Assets.Scripts.ControlVersions
 
         private void Reset()
         {
-            gameObject.AddComponent<CameraMove>().hideFlags = HideFlags.HideInInspector;
-            gameObject.AddComponent<CameraRotate>().hideFlags = HideFlags.HideInInspector;
-            gameObject.AddComponent<SwipeCameraController>().hideFlags = HideFlags.HideInInspector;
-            gameObject.AddComponent<TouchTracking>().hideFlags = HideFlags.HideInInspector;
-            gameObject.AddComponent<TrailTouch>().hideFlags = HideFlags.HideInInspector;
+            gameObject.AddComponent<CameraMoveOLD>().hideFlags = HideFlags.HideInInspector;
+            gameObject.AddComponent<CameraRotateOLD>().hideFlags = HideFlags.HideInInspector;
+            gameObject.AddComponent<SwipeCameraControllerOLD>().hideFlags = HideFlags.HideInInspector;
+            gameObject.AddComponent<TouchTrackingOLD>().hideFlags = HideFlags.HideInInspector;
+            gameObject.AddComponent<TrailTouchOLD>().hideFlags = HideFlags.HideInInspector;
         }
 
         private void OnDestroy()
@@ -40,11 +39,11 @@ namespace Assets.Scripts.ControlVersions
         {
             if (!Application.isPlaying)
             {
-                DestroyImmediate(gameObject.GetComponent<CameraMove>(), false);
-                DestroyImmediate(gameObject.GetComponent<CameraRotate>(), false);
-                DestroyImmediate(gameObject.GetComponent<SwipeCameraController>(), false);
-                DestroyImmediate(gameObject.GetComponent<TouchTracking>(), false);
-                DestroyImmediate(gameObject.GetComponent<TrailTouch>(), false);
+                DestroyImmediate(gameObject.GetComponent<CameraMoveOLD>(), false);
+                DestroyImmediate(gameObject.GetComponent<CameraRotateOLD>(), false);
+                DestroyImmediate(gameObject.GetComponent<SwipeCameraControllerOLD>(), false);
+                DestroyImmediate(gameObject.GetComponent<TouchTrackingOLD>(), false);
+                DestroyImmediate(gameObject.GetComponent<TrailTouchOLD>(), false);
             }
         }
 

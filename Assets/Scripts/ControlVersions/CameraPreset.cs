@@ -1,8 +1,9 @@
-п»їusing System.Collections;
+using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
-namespace ControlVersions
+namespace CameraPreset
 {
     public enum CameraPresets
     {
@@ -11,15 +12,28 @@ namespace ControlVersions
         Buttons
     };
 
+    [InitializeOnLoad]
     public class CameraPreset : MonoBehaviour
     {
-        public CameraPresets Quality = CameraPresets.FreeFly; //Р±СѓРґРµС‚ РѕС‚РѕР±СЂР°Р¶Р°С‚СЃСЏ РєР°Рє РґСЂРѕРїРґР°СѓРЅ
+        public delegate void CameraPresetHandler();
+        public static event CameraPresetHandler CameraPresetIsChange;
 
-        static Dictionary<string, Vector2> qualityDictionary = new Dictionary<string, Vector2>()
+        public CameraPresets cameraPreset = CameraPresets.FreeFly; //будет отображатся как дропдаун
+        public static CameraPresets currentPreset;
+
+        //static Dictionary<string, Vector2> cameraPresetDictionary = new Dictionary<string, Vector2>()
+        //{
+        //    { "RotateAround", new Vector2(1920, 1080)},
+        //    { "FreeFly", new Vector2(3840, 2160)},
+        //    { "Buttons", new Vector2(3840, 2160)},
+        //};
+
+        private void OnValidate()
         {
-            { "RotateAround", new Vector2(1920, 1080)},
-            { "FreeFly", new Vector2(3840, 2160)},
-            { "Buttons", new Vector2(3840, 2160)},
-        };
+            //Debug.Log(currentPreset);
+            currentPreset = cameraPreset;
+            if (CameraPresetIsChange != null)
+                CameraPresetIsChange();
+        }
     }
 }

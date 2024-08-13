@@ -8,7 +8,7 @@ namespace Assets.Scripts.ControlVersions
 {
     [DisallowMultipleComponent]
     [RequireComponent(typeof(Image))]
-    public class SwipeCameraController : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
+    public class SwipeCameraControllerOLD : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
     {
 
         public delegate void OnBeginDragHandler(PointerEventData data);
