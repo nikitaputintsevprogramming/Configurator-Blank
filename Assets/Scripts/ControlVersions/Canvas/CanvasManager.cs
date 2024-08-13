@@ -9,7 +9,8 @@ namespace CameraPreset
     [InitializeOnLoad]
     public class CanvasManager
     {
-        public List<IChoosable> canvasPresets = new List<IChoosable>();
+        // Сохраняем список всех IChoosable объектов при инициализации
+        static List<IChoosable> canvasPresets = new List<IChoosable>();
 
         static CanvasManager()
         {
@@ -19,46 +20,51 @@ namespace CameraPreset
 
         public static void ChangeCameraPreset(CameraPresets preset)
         {
-            //Debug.Log("ChangeCameraPreset " + preset);
-            // Создаем новый экземпляр CanvasManager, так как он не Singleton
-            var manager = new CanvasManager();
-            // Очищаем список перед каждым использованием
-            manager.canvasPresets.Clear();
-            // Находим все объекты, реализующие интерфейс IChoosable
-            manager.canvasPresets.AddRange(GameObject.FindObjectsOfType<MonoBehaviour>().OfType<IChoosable>());
-            // Логируем найденные объекты
-            // Перебираем найденные объекты и скрываем те, которые не соответствуют выбранному пресету
-            foreach (var canvas in manager.canvasPresets)
+            // Инициализация списка один раз при загрузке
+            canvasPresets = GameObject.FindObjectsOfType<MonoBehaviour>(true).OfType<IChoosable>().ToList();
+            // Логирование количества найденных объектов
+            Debug.Log("Объектов IChoosable найдено: " + canvasPresets.Count);
+
+            // Перебираем каждый canvasPreset и устанавливаем его активное состояние
+            foreach (var canvas in canvasPresets)
             {
-                Debug.Log("Found IChoosable object: " + canvas);
-                if (canvas is MonoBehaviour monoCanvas)
+                if (canvas.AssociatedPreset == preset)
                 {
-                    if (ShouldCanvasBeActive(monoCanvas, preset))
-                    {
-                        monoCanvas.gameObject.SetActive(true); // Активируем нужный канвас
-                    }
-                    else
-                    {
-                        monoCanvas.gameObject.SetActive(false); // Деактивируем ненужные канвасы
-                    }
+                    canvas.SetActiveObj(true);
+                    Debug.Log("Активирован: " + canvas.AssociatedPreset);
+                }
+                else
+                {
+                    canvas.SetActiveObj(false);
+                    Debug.Log("Деактивирован: " + canvas.AssociatedPreset);
                 }
             }
         }
-
-        // Метод для проверки, соответствует ли данный канвас выбранному пресету
-        private static bool ShouldCanvasBeActive(MonoBehaviour canvas, CameraPresets preset)
-        {
-            // Предположим, у IChoosable есть свойство, которое возвращает CameraPresets
-            if (canvas is IChoosable choosableCanvas)
-            {
-                // Здесь должно быть какое-то свойство или метод, который определяет, какой пресет соответствует этому канвасу
-                // Например:
-                // return choosableCanvas.GetPreset() == preset;
-
-                // Но для примера просто возвращаем true, если хотим, чтобы этот канвас был активным
-                return true; // Измените это в зависимости от вашей логики
-            }
-            return false;
-        }
     }
 }
+
+
+//    }
+//    // Установка активности на основе метода ShouldCanvasBeActive
+//    //monoCanvas.gameObject.SetActive(ShouldCanvasBeActive(monoCanvas, preset));
+//    //canvas.SetActiveObj(true);
+//}
+//else
+//{
+//    canvas.SetActiveObj(false);
+//    Debug.Log("кккккккк " + canvas);
+//}
+//    }
+//}
+
+//// Метод для проверки, соответствует ли данный канвас выбранному пресету
+//private static bool ShouldCanvasBeActive(MonoBehaviour canvas, CameraPresets preset)
+//{
+//    if (canvas is IChoosable choosableCanvas)
+//    {
+//        Debug.Log("eeeeeeeeee " + canvas);
+//        // Проверка соответствия канваса текущему пресету
+//        return choosableCanvas.AssociatedPreset == preset;
+//    }
+//    return false;
+//}

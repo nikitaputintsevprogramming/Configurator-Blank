@@ -38,13 +38,13 @@ namespace CameraPreset
                 switch (i)
                 {
                     case 0:
-                        _canvasArrowsObj.AddComponent<CanvasType1>();
+                        _canvasArrowsObj.AddComponent<CanvasRotateAround>();
                         break;
                     case 1:
-                        _canvasArrowsObj.AddComponent<CanvasType2>();
+                        _canvasArrowsObj.AddComponent<CanvasFreeFly>();
                         break;
                     case 2:
-                        _canvasArrowsObj.AddComponent<CanvasType3>();
+                        _canvasArrowsObj.AddComponent<CanvasButtons>();
                         break;
                 }
 
