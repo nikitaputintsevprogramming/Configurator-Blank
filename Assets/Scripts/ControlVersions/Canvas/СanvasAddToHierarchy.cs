@@ -1,4 +1,5 @@
 ﻿using CameraPreset;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Security.Cryptography;
@@ -12,11 +13,11 @@ namespace CameraPreset
     [InitializeOnLoad]
     public class СanvasAddToHierarchy 
     {
-        static Dictionary<int, string> qualityDictionary = new Dictionary<int, string>()
+        static Dictionary<int, CameraPresets> qualityDictionary = new Dictionary<int, CameraPresets>()
         {
-            { 0, "RotateAround"},
-            { 1, "FreeFly"},
-            { 2, "Buttons"},
+            { 0, (CameraPresets)Enum.GetValues(typeof(CameraPresets)).GetValue(0)},
+            { 1, (CameraPresets)Enum.GetValues(typeof(CameraPresets)).GetValue(1)},
+            { 2, (CameraPresets)Enum.GetValues(typeof(CameraPresets)).GetValue(2)},
         };
         //public GameObject _canvasObj;
         //public GridLayoutGroup gridGroup;
