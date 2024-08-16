@@ -35,7 +35,8 @@ namespace CameraPreset
             }
             else
             {
-                Debug.LogWarning("Camera preset object not found!");
+                if(TestLog.enableLog)
+                    Debug.LogWarning("Camera preset object not found!");
             }
         }
     }

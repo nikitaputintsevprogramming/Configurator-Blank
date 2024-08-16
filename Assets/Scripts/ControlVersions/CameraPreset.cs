@@ -22,7 +22,8 @@ namespace CameraPreset
         private void OnValidate()
         {
             currentPreset = cameraPreset;
-            Debug.LogFormat("current preset: {0}", currentPreset);
+            if(TestLog.enableLog)
+                Debug.LogFormat("current preset: {0}", currentPreset);
             CameraPresetIsChange?.Invoke(currentPreset); // Вызываем событие, если есть подписчики
         }
     }

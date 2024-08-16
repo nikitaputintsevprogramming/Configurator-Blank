@@ -14,16 +14,23 @@ namespace CameraPreset
 
         static CanvasManager()
         {
+            //СanvasAddToHierarchy.СanvasAddedToHierarchy += HideCanvases;
             // Подписываем метод на событие CameraPresetIsChange
             CameraPreset.CameraPresetIsChange += ChangeCameraPreset;
         }
+
+        //static void HideCanvases()
+        //{
+        //    ChangeCameraPreset();
+        //}
 
         public static void ChangeCameraPreset(CameraPresets preset)
         {
             // Инициализация списка один раз при загрузке
             canvasPresets = GameObject.FindObjectsOfType<MonoBehaviour>(true).OfType<IChoosable>().ToList();
             // Логирование количества найденных объектов
-            Debug.Log("Объектов IChoosable найдено: " + canvasPresets.Count);
+            if(TestLog.enableLog)
+                Debug.Log("Объектов IChoosable найдено: " + canvasPresets.Count);
 
             // Перебираем каждый canvasPreset и устанавливаем его активное состояние
             foreach (var canvas in canvasPresets)
@@ -31,12 +38,14 @@ namespace CameraPreset
                 if (canvas.AssociatedPreset == preset)
                 {
                     canvas.SetActiveObj(true);
-                    Debug.Log("Активирован: " + canvas.AssociatedPreset);
+                    if(TestLog.enableLog)
+                        Debug.Log("Активирован: " + canvas.AssociatedPreset);
                 }
                 else
                 {
                     canvas.SetActiveObj(false);
-                    Debug.Log("Деактивирован: " + canvas.AssociatedPreset);
+                    if(TestLog.enableLog)
+                        Debug.Log("Деактивирован: " + canvas.AssociatedPreset);
                 }
             }
         }

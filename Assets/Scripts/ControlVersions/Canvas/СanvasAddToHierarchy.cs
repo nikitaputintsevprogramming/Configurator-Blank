@@ -29,7 +29,8 @@ namespace CameraPreset
 
         static void AddCanvasToHierarchy()
         {
-            Debug.Log("AddCanvasToHierarchy called");
+            if(TestLog.enableLog)
+                Debug.Log("AddCanvasToHierarchy called");
             for (int i = qualityDictionary.Keys.Count - 1; i >= 0; i--)
             {
                 GameObject _canvasArrowsObj = new GameObject("Canvas" + qualityDictionary[i], typeof(Canvas), typeof(CanvasScaler), typeof(GraphicRaycaster), typeof(GridLayoutGroup), typeof(CanvasSettings));

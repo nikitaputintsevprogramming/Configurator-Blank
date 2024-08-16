@@ -3,6 +3,8 @@ using UnityEngine;
 
 namespace CameraPreset
 {
+    [ExecuteAlways]
+    [InitializeOnLoad]
     public class CanvasRotateAround : MonoBehaviour, IChoosable
     {
         [SerializeField] private CameraPresets associatedPreset = CameraPresets.RotateAround;
@@ -17,6 +19,7 @@ namespace CameraPreset
         public void SetActiveObj(bool isActive)
         {
             transform.gameObject.SetActive(isActive);
+            gameObject.hideFlags = isActive ? HideFlags.None : HideFlags.HideInHierarchy;
         }
     }
 }

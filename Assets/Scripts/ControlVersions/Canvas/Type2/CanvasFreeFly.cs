@@ -3,6 +3,8 @@ using UnityEngine;
 
 namespace CameraPreset
 {
+    [ExecuteInEditMode]
+    [InitializeOnLoad]
     public class CanvasFreeFly : MonoBehaviour, IChoosable
     {
         [SerializeField] private CameraPresets associatedPreset = CameraPresets.FreeFly;
@@ -17,6 +19,8 @@ namespace CameraPreset
         public void SetActiveObj(bool isActive)
         {
             transform.gameObject.SetActive(isActive);
+            gameObject.hideFlags = isActive ? HideFlags.None : HideFlags.HideInHierarchy;
+
         }
     }
 }
