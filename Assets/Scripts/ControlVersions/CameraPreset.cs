@@ -1,5 +1,7 @@
+using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using System;
 
 namespace CameraPreset
 {
@@ -13,6 +15,14 @@ namespace CameraPreset
     [InitializeOnLoad]
     public class CameraPreset : MonoBehaviour
     {
+        // Словарь для сопоставления значений CameraPresets с типами компонентов
+        public static readonly Dictionary<CameraPresets, Type> presetComponentMap = new Dictionary<CameraPresets, Type>
+        {
+            { CameraPresets.RotateAround, typeof(CanvasRotateAround) },
+            { CameraPresets.FreeFly, typeof(CanvasFreeFly) },
+            { CameraPresets.Buttons, typeof(CanvasButtons) }
+        };
+
         public delegate void CameraPresetHandler(CameraPresets cameraPresets);
         public static event CameraPresetHandler CameraPresetIsChange;
 
