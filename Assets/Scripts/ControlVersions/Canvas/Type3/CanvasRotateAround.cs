@@ -7,7 +7,7 @@ namespace CameraPreset
     [InitializeOnLoad]
     public class CanvasRotateAround : MonoBehaviour, IChoosable
     {
-        [SerializeField] private CameraPresets associatedPreset = CameraPresets.RotateAround;
+        private CameraPresets associatedPreset = CameraPresets.RotateAround;
 
         public CameraPresets AssociatedPreset => associatedPreset;
 
@@ -15,11 +15,12 @@ namespace CameraPreset
         {
             return AssociatedPreset == preset;
         }
-
+        #if UNITY_EDITOR
         public void SetActiveObj(bool isActive)
         {
             transform.gameObject.SetActive(isActive);
             gameObject.hideFlags = isActive ? HideFlags.None : HideFlags.HideInHierarchy;
         }
+        #endif
     }
 }

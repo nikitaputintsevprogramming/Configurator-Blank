@@ -38,6 +38,12 @@ namespace CameraPreset
                 if(TestLog.enableLog)
                     Debug.LogWarning("Camera preset object not found!");
             }
+            TheEndOfSettings();
+        }
+
+        private void TheEndOfSettings()
+        {
+            DestroyImmediate(GetComponent<CanvasSettings>());
         }
     }
 }

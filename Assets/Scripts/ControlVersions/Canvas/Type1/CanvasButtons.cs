@@ -7,7 +7,7 @@ namespace CameraPreset
     [InitializeOnLoad]
     public class CanvasButtons : MonoBehaviour, IChoosable
     {
-        [SerializeField] private CameraPresets associatedPreset = CameraPresets.Buttons;
+        private CameraPresets associatedPreset = CameraPresets.Buttons;
 
         public CameraPresets AssociatedPreset => associatedPreset;
 

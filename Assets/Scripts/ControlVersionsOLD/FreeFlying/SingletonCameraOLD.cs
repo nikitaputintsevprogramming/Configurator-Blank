@@ -12,8 +12,10 @@ namespace Assets.Scripts.ControlVersions
     //[RequireComponent(typeof(HiddenChildrenComponents))] //, typeof(CameraMove), typeof(CameraRotate))] 
     public class SingletonCameraOLD : MonoBehaviour
     {
+        #if UNITY_EDITOR
         public delegate void DestroyCameraSettingsHandler();
         public static event DestroyCameraSettingsHandler DestroyCameraSettings;
+        #endif
 
         public bool RotateCamera360;
         public static SingletonCameraOLD Instance { get; private set; }

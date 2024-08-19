@@ -7,7 +7,7 @@ namespace CameraPreset
     [InitializeOnLoad]
     public class CanvasFreeFly : MonoBehaviour, IChoosable
     {
-        [SerializeField] private CameraPresets associatedPreset = CameraPresets.FreeFly;
+        private CameraPresets associatedPreset = CameraPresets.FreeFly;
 
         public CameraPresets AssociatedPreset => associatedPreset;
 

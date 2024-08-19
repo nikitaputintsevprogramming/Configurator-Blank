@@ -19,6 +19,7 @@ namespace CameraPreset
         public CameraPresets cameraPreset = CameraPresets.FreeFly; //будет отображаться как дропдаун
         public static CameraPresets currentPreset;
 
+        #if UNITY_EDITOR
         private void OnValidate()
         {
             currentPreset = cameraPreset;
@@ -26,5 +27,6 @@ namespace CameraPreset
                 Debug.LogFormat("current preset: {0}", currentPreset);
             CameraPresetIsChange?.Invoke(currentPreset); // Вызываем событие, если есть подписчики
         }
+        #endif
     }
 }
