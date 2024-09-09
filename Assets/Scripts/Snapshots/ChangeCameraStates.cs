@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Snap
 {
     public class ChangeCameraStates : MonoBehaviour
     {
+        public GameObject m_MainCamera;
         private Snapshots snapshots;
         private Markers markers;
         [SerializeField] private GameObject canvasConfig;
@@ -15,8 +17,11 @@ namespace Snap
         private void Start()
         {
             ButtonConfig.e_OnButtonConfig += EnableConfigScene;
+            //m_MainCamera = Camera.main;
             snapshots = FindObjectOfType<Snapshots>();
             markers = FindObjectOfType<Markers>();
+
+            ChangeStateOn(0);
         }
 
         public void EnableConfigScene()
@@ -24,6 +29,11 @@ namespace Snap
             if(canvasConfig.activeInHierarchy)
             {
                 ChangeStateOn(0);
+            }
+            else
+            {
+                ChangeStateOn(1);
+                canvasConfig.SetActive(true);
             }
         }
 
@@ -59,21 +69,23 @@ namespace Snap
 
         private void MainCameraOn()
         {
-            Camera.main.gameObject.SetActive(true);
+            canvasConfig.SetActive(false);
+
+            m_MainCamera.gameObject.SetActive(true);
             snapshots.EnableConfigScene(false);
             markers.EnableConfigScene(false);
         }
 
         private void SnapshotCameraOn()
         {
-            Camera.main.gameObject.SetActive(false);
+            m_MainCamera.gameObject.SetActive(false);
             snapshots.EnableConfigScene(true);
             markers.EnableConfigScene(false);
         }
 
         private void MarkersCameraOn()
         {
-            Camera.main.gameObject.SetActive(false);
+            m_MainCamera.gameObject.SetActive(false);
             snapshots.EnableConfigScene(false);
             markers.EnableConfigScene(true);
         }

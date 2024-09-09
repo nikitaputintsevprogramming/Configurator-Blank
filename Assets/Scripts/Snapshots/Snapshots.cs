@@ -29,21 +29,7 @@ namespace Snap
 
         public void EnableConfigScene(bool enable)
         {
-            configCamera.gameObject.SetActive(true);
-            //mainCamera.gameObject.SetActive(!mainCamera.gameObject.activeInHierarchy);
-
-            // ¬ключаем конфигурационную камеру и выключаем другую
-            //canvasConfig.gameObject.SetActive(!canvasConfig.gameObject.activeInHierarchy);
-
-            //configCamera.gameObject.SetActive(!configCamera.gameObject.activeInHierarchy);
-            //mainCamera.gameObject.SetActive(!mainCamera.gameObject.activeInHierarchy);
-
-
-            //makeShapshot.gameObject.SetActive(!makeShapshot.gameObject.activeInHierarchy);
-            //clearShapshot.gameObject.SetActive(!clearShapshot.gameObject.activeInHierarchy);
-
-            //speedSlider.gameObject.SetActive(!speedSlider.gameObject.activeInHierarchy);
-            //speedText.gameObject.SetActive(!speedText.gameObject.activeInHierarchy);
+            configCamera.gameObject.SetActive(enable);
 
             for (int i = 0; i < SnapshotObjects.Count; i++)
             {
