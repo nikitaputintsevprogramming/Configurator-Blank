@@ -5,11 +5,11 @@ using UnityEngine.UI;
 
 namespace Snap
 {
-    public class SnapshotsOLD : MonoBehaviour
+    public class Snapshots : MonoBehaviour
     {
         public Camera configCamera; // Камера для конфигурационной сцены
-        public Camera mainCamera;  // Другая камера
-        public GameObject canvasConfig;
+        //public Camera mainCamera;  // Другая камера
+        //public GameObject canvasConfig;
 
         public string saveFileName = "snapshots.json"; // Имя файла для сохранения
 
@@ -22,18 +22,23 @@ namespace Snap
             LoadSnapshots(); // Восстановление объектов из загруженных данных
         }
 
-        private void Start()
-        {
-            ButtonConfig.e_OnButtonConfig += EnableConfigScene;
-        }
+        //private void Start()
+        //{
+        //    ButtonConfig.e_OnButtonConfig += EnableConfigScene;
+        //}
 
-        public void EnableConfigScene()
+        public void EnableConfigScene(bool enable)
         {
+            configCamera.gameObject.SetActive(true);
+            //mainCamera.gameObject.SetActive(!mainCamera.gameObject.activeInHierarchy);
+
             // Включаем конфигурационную камеру и выключаем другую
-            canvasConfig.gameObject.SetActive(!canvasConfig.gameObject.activeInHierarchy);
+            //canvasConfig.gameObject.SetActive(!canvasConfig.gameObject.activeInHierarchy);
 
-            configCamera.gameObject.SetActive(!configCamera.gameObject.activeInHierarchy);
-            mainCamera.gameObject.SetActive(!mainCamera.gameObject.activeInHierarchy);
+            //configCamera.gameObject.SetActive(!configCamera.gameObject.activeInHierarchy);
+            //mainCamera.gameObject.SetActive(!mainCamera.gameObject.activeInHierarchy);
+
+
             //makeShapshot.gameObject.SetActive(!makeShapshot.gameObject.activeInHierarchy);
             //clearShapshot.gameObject.SetActive(!clearShapshot.gameObject.activeInHierarchy);
 

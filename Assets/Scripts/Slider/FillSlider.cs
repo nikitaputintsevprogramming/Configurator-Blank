@@ -20,7 +20,6 @@ namespace SliderPages
         public string SecondManument;
     }
 
-
     public class FillSlider : MonoBehaviour
     {
         private PagesStream _streams;
