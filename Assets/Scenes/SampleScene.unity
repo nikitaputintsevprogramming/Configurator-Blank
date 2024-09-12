@@ -7246,7 +7246,7 @@ GameObject:
   - component: {fileID: 249074191}
   - component: {fileID: 249074190}
   m_Layer: 5
-  m_Name: Button
+  m_Name: Button Delete
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -20391,7 +20391,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 8483781}
   m_Direction: 2
   m_Value: 0
-  m_Size: 1
+  m_Size: 0.6208492
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -20678,6 +20678,7 @@ MonoBehaviour:
   - {fileID: 247639270}
   - {fileID: 10184786}
   _markers: {fileID: 484173769}
+  _cameraPoints: {fileID: 0}
   _buttonArrowLeft: {fileID: 113016724}
   _buttonSlider: {fileID: 554344826}
   _buttonVideoPlayer: {fileID: 426507921}
@@ -33467,7 +33468,7 @@ GameObject:
   - component: {fileID: 1241763965}
   - component: {fileID: 1241763964}
   m_Layer: 5
-  m_Name: buttons (1)
+  m_Name: buttons
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -34301,7 +34302,7 @@ GameObject:
   - component: {fileID: 1283429697}
   - component: {fileID: 1283429696}
   m_Layer: 5
-  m_Name: Button
+  m_Name: Button Make
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

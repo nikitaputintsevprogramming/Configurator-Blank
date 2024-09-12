@@ -18,24 +18,25 @@ namespace Snap
 
         private void OnEnable()
         {
-            LoadFromFile(); // Загрузка данных из файла при старте
-            LoadMarkers(); // Восстановление объектов из загруженных данных
+            //ButtonConfig.e_OnButtonConfig += EnableConfigScene;
         }
 
-        //private void Start()
-        //{
-        //    ButtonConfig.e_OnButtonConfig += EnableConfigScene;
-        //}
+        private void Start()
+        {
+            LoadFromFile(); // Загрузка данных из файла при старте
+            LoadMarkers();
+            EnableMarkers(false);
+        }
 
         public void EnableConfigScene(bool enable)
         {
             configCamera.gameObject.SetActive(enable);
 
-            for (int i = 0; i < MarkerObjects.Count; i++)
-            {
-                MarkerObjects[i].SetActive(!MarkerObjects[i].activeInHierarchy);
-                //MarkerObjects[i].SetActive(enable);
-            }
+            //for (int i = 0; i < MarkerObjects.Count; i++)
+            //{
+            //    MarkerObjects[i].SetActive(enable);
+            //}
+            EnableMarkers(enable);
         }
 
         public void SaveCurrentCameraState()
@@ -104,18 +105,22 @@ namespace Snap
             }
         }
 
+        public void EnableMarkers(bool active)
+        {
+            for (int i = 0; i < MarkerObjects.Count; i++)
+            {
+                //MarkerObjects[i].SetActive(!MarkerObjects[i].activeInHierarchy);
+                MarkerObjects[i].SetActive(active);
+            }
+        }
+
+
         private void LoadMarkers()
         {
             MarkerObjects.Clear(); // Очищаем список объектов перед загрузкой
             foreach (var snapshot in savedMarkers)
             {
                 MakeMarkerObj(snapshot);
-            }
-
-            for (int i = 0; i < MarkerObjects.Count; i++)
-            {
-                //MarkerObjects[i].SetActive(!MarkerObjects[i].activeInHierarchy);
-                MarkerObjects[i].SetActive(!MarkerObjects[i].activeInHierarchy);
             }
         }
 

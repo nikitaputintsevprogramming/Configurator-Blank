@@ -1,8 +1,10 @@
 using Buttons;
+using Snap;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
+using UnityEngine.Timeline;
 using UnityEngine.UI;
 
 namespace StateMachine
@@ -22,7 +24,8 @@ namespace StateMachine
         [SerializeField] private GameObject _canvasVideo;
         [SerializeField] List<GameObject> _canvasList = new List<GameObject>();    
 
-        [SerializeField] private GameObject _markers;
+        //[SerializeField] private GameObject _markers;
+        [SerializeField] private GameObject _cameraPoints;
 
         [SerializeField] private Button _buttonArrowLeft;
         [SerializeField] private Button _buttonSlider;
@@ -176,9 +179,9 @@ namespace StateMachine
             }
         }
 
-        private void MarkersVisible(bool Bool)
+        private void MarkersVisible(bool active)
         {
-            _markers.SetActive(Bool);
+            FindObjectOfType<Markers>().EnableMarkers(active);
         }
     }
 

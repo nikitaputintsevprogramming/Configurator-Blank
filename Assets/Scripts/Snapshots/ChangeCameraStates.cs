@@ -1,4 +1,5 @@
-﻿using System;
+﻿using StateMachine;
+using System;
 using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -29,11 +30,13 @@ namespace Snap
             if(canvasConfig.activeInHierarchy)
             {
                 ChangeStateOn(0);
+                FindObjectOfType<StateMachineButtons>().ChangeState(States.WithoutMarkers);
             }
             else
             {
                 ChangeStateOn(1);
                 canvasConfig.SetActive(true);
+                FindObjectOfType<StateMachineButtons>().ChangeState(States.WithoutMarkers);
             }
         }
 

@@ -22,8 +22,12 @@ namespace Buttons
 
         private void OnEnable()
         {
-            FindSnapshots();
             _camera = Camera.main;
+        }
+
+        private void Start()
+        {
+            FindSnapshots();
             _camera.transform.position = _startPos.position;
             _camera.transform.rotation = _startPos.rotation;
         }

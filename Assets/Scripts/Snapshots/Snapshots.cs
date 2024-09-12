@@ -18,23 +18,25 @@ namespace Snap
 
         private void OnEnable()
         {
-            LoadFromFile(); // Загрузка данных из файла при старте
-            LoadSnapshots(); // Восстановление объектов из загруженных данных
+            //ButtonConfig.e_OnButtonConfig += EnableConfigScene;
         }
 
-        //private void Start()
-        //{
-        //    ButtonConfig.e_OnButtonConfig += EnableConfigScene;
-        //}
+        private void Start()
+        {
+            LoadFromFile();
+            EnableSnapshots(false);
+            LoadSnapshots(); // Восстановление объектов из загруженных данных
+        }
 
         public void EnableConfigScene(bool enable)
         {
             configCamera.gameObject.SetActive(enable);
 
-            for (int i = 0; i < SnapshotObjects.Count; i++)
-            {
-                SnapshotObjects[i].SetActive(!SnapshotObjects[i].activeInHierarchy);
-            }
+            //for (int i = 0; i < SnapshotObjects.Count; i++)
+            //{
+            //    SnapshotObjects[i].SetActive(!SnapshotObjects[i].activeInHierarchy);
+            //}
+            EnableSnapshots(enable);
         }
 
         public void SaveCurrentCameraState()
@@ -103,6 +105,16 @@ namespace Snap
             }
         }
 
+
+        private void EnableSnapshots(bool active)
+        {
+
+            for (int i = 0; i < SnapshotObjects.Count; i++)
+            {
+                SnapshotObjects[i].SetActive(active);
+            }
+        }
+
         private void LoadSnapshots()
         {
             SnapshotObjects.Clear(); // Очищаем список объектов перед загрузкой
@@ -111,10 +123,6 @@ namespace Snap
                 MakeSnapShotObj(snapshot);
             }
 
-            for (int i = 0; i < SnapshotObjects.Count; i++)
-            {
-                SnapshotObjects[i].SetActive(!SnapshotObjects[i].activeInHierarchy);
-            }
         }
 
         [System.Serializable]
